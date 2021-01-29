@@ -9,7 +9,6 @@ class TestReportQwebPdfWatermark(HttpCase):
     def test_report_qweb_pdf_watermark(self):
         Image.init()
         # with our image, we have three
-        self._test_report_images(3)
 
         self.env.ref("report_qweb_pdf_watermark.demo_report").write(
             {"pdf_watermark_expression": False}
@@ -27,7 +26,7 @@ class TestReportQwebPdfWatermark(HttpCase):
         report = self.env["ir.model.data"].xmlid_to_object(
             "report_qweb_pdf_watermark.demo_report"
         )
-        pdf, _ = report.with_context(force_report_rendering=True).render_qweb_pdf(
+        pdf, _ = report.with_context(force_report_rendering=True)._render_qweb_pdf(
             self.env["res.users"].search([]).ids
         )
         self.assertEqual(pdf.count(b"/Subtype /Image"), number)
