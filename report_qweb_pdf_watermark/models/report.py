@@ -34,7 +34,6 @@ class Report(models.Model):
         "You have access to variables `env` and `docs`",
     )
 
-    @api.multi
     def render_qweb_pdf(self, res_ids=None, data=None):
         if not self.env.context.get("res_ids"):
             return super(Report, self.with_context(res_ids=res_ids)).render_qweb_pdf(
